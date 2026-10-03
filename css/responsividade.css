@@ -1,0 +1,195 @@
+/* =====================================================================
+   Responsividade · Cone
+   Carregado depois de style.css. Abordagem desktop-first:
+   cada bloco ajusta o layout para telas menores que o anterior.
+
+   Pontos de quebra
+   - até 1024px  → notebook pequeno / tablet deitado
+   - até 860px   → tablet em pé (menu vira hambúrguer)
+   - até 480px   → celular
+   - telas baixas deitadas (celular na horizontal)
+   ===================================================================== */
+
+
+/* ===== Até 1024px · notebook pequeno / tablet deitado ===== */
+@media (max-width: 1024px) {
+  .navbar__menu {
+    gap: 1.75rem;
+  }
+
+  .navbar__links {
+    gap: 1.5rem;
+  }
+
+  /* O ícone do HubSpot fica mais perto do texto: escurece um pouco mais a esquerda */
+  .hero {
+    background:
+      linear-gradient(90deg, rgba(4, 21, 31, 0.9) 0%, rgba(4, 21, 31, 0.65) 45%, rgba(4, 21, 31, 0) 75%),
+      var(--cone-navy-900) url('../img/header-hubspot.png') var(--hero-bg-x) center / cover no-repeat;
+  }
+
+  .hero__content {
+    max-width: 500px;
+  }
+}
+
+
+/* ===== Até 860px · tablet em pé ===== */
+@media (max-width: 860px) {
+  /* --- Navbar: menu hambúrguer --- */
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__menu {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-height: calc(100svh - var(--navbar-height));
+    overflow-y: auto;
+    background: var(--cone-navy-900);
+    border-top: 1px solid var(--cone-petroleo-800);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  }
+
+  .navbar__menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar__links {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .navbar__link {
+    display: block;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--cone-petroleo-800);
+  }
+
+  .navbar__link::after {
+    display: none;
+  }
+
+  .navbar__logo img {
+    height: 36px;
+  }
+
+  .navbar.scrolled .navbar__logo img {
+    height: 32px;
+  }
+
+  /* --- Hero: texto centralizado, fundo escurecido por igual --- */
+  .hero {
+    --hero-bg-x: 72%;
+    min-height: 100svh; /* evita o "pulo" da barra de endereço no celular */
+    background:
+      linear-gradient(rgba(4, 21, 31, 0.6), rgba(4, 21, 31, 0.6)),
+      var(--cone-navy-900) url('../img/header-hubspot.png') var(--hero-bg-x) center / cover no-repeat;
+    text-align: center;
+  }
+
+  /* O ícone fica atrás do texto: efeitos mais suaves */
+  .hero__fx {
+    opacity: 0.5;
+  }
+
+  .hero__content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
+
+  /* --- Seções --- */
+  .section {
+    min-height: 100svh;
+  }
+}
+
+
+/* ===== Até 480px · celular ===== */
+@media (max-width: 480px) {
+  :root {
+    --navbar-height: 64px;
+  }
+
+  .navbar.scrolled {
+    --navbar-height: 60px;
+  }
+
+  .navbar__container {
+    padding: 0 1rem;
+  }
+
+  .navbar__logo img {
+    height: 30px;
+  }
+
+  .navbar.scrolled .navbar__logo img {
+    height: 28px;
+  }
+
+  .navbar__menu {
+    padding: 1rem;
+  }
+
+  .hero {
+    padding: calc(var(--navbar-height) + 1.5rem) 1rem 3rem;
+  }
+
+  .hero__title {
+    font-size: 1.85rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Botões um embaixo do outro, ocupando a largura toda */
+  .hero__actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+  }
+}
+
+
+/* ===== Celular deitado (tela baixa) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero,
+  .section {
+    min-height: auto;
+  }
+
+  .hero {
+    padding-top: calc(var(--navbar-height) + 2rem);
+    padding-bottom: 3rem;
+  }
+
+  .hero__title {
+    font-size: 1.75rem;
+  }
+
+  .hero__subtitle {
+    margin-bottom: 1.5rem;
+  }
+}

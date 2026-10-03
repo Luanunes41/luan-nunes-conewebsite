@@ -1,0 +1,375 @@
+/* ===== Variáveis de layout (cores ficam em palette.css) ===== */
+:root {
+  --font-base: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --navbar-height: 80px;
+  --container: 1200px;
+  --transition: 0.3s ease;
+
+  /* Sombras com base no navy-900 (#04151F) */
+  --shadow-sm: 0 4px 20px rgba(4, 21, 31, 0.08);
+  --shadow-md: 0 12px 24px rgba(4, 21, 31, 0.12);
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--navbar-height);
+}
+
+body {
+  font-family: var(--font-base);
+  color: var(--cone-text-primary);
+  background: var(--cone-bg);
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ===== Botões ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--cone-ciano-200);
+  outline-offset: 3px;
+}
+
+/* Botão padrão do site (petróleo no claro, ciano no escuro) */
+.btn--primary {
+  background: var(--cone-button-primary);
+  color: var(--cone-on-button-primary);
+}
+
+.btn--primary:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Botão ciano, para usar sobre fundos escuros como o header */
+.btn--accent {
+  background: var(--cone-ciano-200);
+  color: var(--cone-navy-900);
+}
+
+.btn--accent:hover {
+  background: var(--cone-ciano-100);
+  box-shadow: 0 8px 24px rgba(0, 242, 224, 0.35);
+}
+
+/* Botão vazado branco, para fundos escuros */
+.btn--ghost {
+  color: var(--cone-on-brand);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--cone-on-brand);
+}
+
+/* ===== Navbar ===== */
+/* Escura como o header: usa cores fixas da paleta (navy, petróleo, ciano). */
+.navbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  height: var(--navbar-height);
+  background: rgba(4, 21, 31, 0.6); /* navy-900 translúcido sobre o header */
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition), height var(--transition);
+}
+
+.navbar.scrolled {
+  --navbar-height: 68px;
+  background: rgba(4, 21, 31, 0.92);
+  border-bottom-color: var(--cone-petroleo-800);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.navbar__container {
+  max-width: var(--container);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__logo img {
+  height: 44px;
+  width: auto;
+  transition: height var(--transition);
+}
+
+.navbar.scrolled .navbar__logo img {
+  height: 38px;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar__link {
+  position: relative;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--cone-petroleo-200);
+  padding: 0.25rem 0;
+  transition: color var(--transition);
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cone-ciano-200);
+  box-shadow: 0 0 8px rgba(0, 242, 224, 0.6);
+  transition: width var(--transition);
+}
+
+.navbar__link:hover,
+.navbar__link.active {
+  color: var(--cone-ciano-200);
+}
+
+.navbar__link:hover::after,
+.navbar__link.active::after {
+  width: 100%;
+}
+
+/* Botão hambúrguer (só aparece no mobile) */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar__toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--cone-on-brand);
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.navbar__toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar__toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar__toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== Hero / Header ===== */
+/* A imagem é sempre escura, então o hero usa cores fixas da paleta
+   em vez dos tokens que mudam entre modo claro e escuro. */
+.hero {
+  --hero-bg-x: 70%; /* posição horizontal do fundo; o JS usa o mesmo valor */
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--navbar-height) + 2rem) 1.5rem 4rem;
+  /* Gradiente escurece o lado esquerdo (texto) e deixa o ícone do HubSpot visível à direita */
+  background:
+    linear-gradient(90deg, rgba(4, 21, 31, 0.85) 0%, rgba(4, 21, 31, 0.55) 40%, rgba(4, 21, 31, 0) 65%),
+    var(--cone-navy-900) url('../img/header-hubspot.png') var(--hero-bg-x) center / cover no-repeat;
+  color: var(--cone-on-brand);
+}
+
+.hero__container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container);
+}
+
+/* ----- Efeitos no ícone do HubSpot ----- */
+/* .hero__fx tem o mesmo tamanho e posição da imagem de fundo (calculado no JS),
+   então os filhos usam % da imagem original (1983x793). */
+.hero__fx {
+  position: absolute;
+  pointer-events: none;
+}
+
+.hero__icon {
+  position: absolute;
+  left: 71.9%;
+  top: 43.5%;
+  width: 16.1%;
+  height: 42.9%;
+  transform: translate(-50%, -50%) rotate(5deg);
+}
+
+/* Brilho laranja pulsando no logo */
+.hero__icon-glow {
+  position: absolute;
+  left: 59%;
+  top: 60%;
+  width: 95%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 138, 61, 0.55) 0%, rgba(255, 138, 61, 0.15) 40%, transparent 68%);
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  animation: icon-glow 2.8s ease-in-out infinite;
+}
+
+/* Ondas de sinal ciano saindo do ícone */
+.hero__icon-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--cone-ciano-200);
+  border-radius: 20%;
+  box-shadow: 0 0 18px rgba(0, 242, 224, 0.6), inset 0 0 18px rgba(0, 242, 224, 0.35);
+  opacity: 0;
+  animation: icon-ring 3.2s ease-out infinite;
+}
+
+.hero__icon-ring:nth-of-type(3) {
+  animation-delay: 1.6s;
+}
+
+/* Reflexo de luz passando pelo ícone */
+.hero__icon-shine {
+  position: absolute;
+  inset: 3%;
+  border-radius: 18%;
+  overflow: hidden;
+  mix-blend-mode: screen;
+}
+
+.hero__icon-shine::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.28) 50%, transparent 62%);
+  transform: translateX(-120%);
+  animation: icon-shine 5s ease-in-out infinite;
+}
+
+@keyframes icon-glow {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.9); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes icon-ring {
+  0%   { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(1.7); }
+}
+
+@keyframes icon-shine {
+  0%        { transform: translateX(-120%); }
+  30%, 100% { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__icon-glow,
+  .hero__icon-ring,
+  .hero__icon-shine::before {
+    animation: none;
+  }
+}
+
+.hero__content {
+  max-width: 560px;
+}
+
+.hero__title {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.hero__title span {
+  color: var(--cone-ciano-200);
+}
+
+.hero__subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--cone-petroleo-200);
+  margin-bottom: 2.25rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Regras de tablet e celular ficam em responsividade.css */
+
+/* ===== Seções provisórias ===== */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--navbar-height);
+  color: var(--cone-text-secondary);
+}
+
+.section:nth-child(odd) {
+  background: var(--cone-surface);
+}

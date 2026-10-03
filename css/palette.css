@@ -1,0 +1,148 @@
+/* ===== Paleta oficial Cone ===== */
+:root {
+  /* Cone · Modo claro */
+  --cone-bg: #FFFFFF;
+  --cone-surface: #F2F7F9;
+  --cone-border: #D5E3E8;
+  --cone-text-primary: #04151F;
+  --cone-text-secondary: #4F6470;
+  --cone-brand: #01465C;
+  --cone-on-brand: #FFFFFF;
+  --cone-button-primary: #01617B;
+  --cone-on-button-primary: #FFFFFF;
+  --cone-link: #01617B;
+  --cone-accent: #00F2E0;
+  --cone-on-accent: #04151F;
+
+  /* Suporte */
+  --cone-sucesso: #12A36E;
+  --cone-sucesso-tint: #DEF2EB;
+  --cone-aviso: #FF8A3D;
+  --cone-aviso-tint: #FFEFE4;
+  --cone-erro: #E0484C;
+  --cone-erro-tint: #FBE5E6;
+  --cone-info: #01798E;
+  --cone-info-tint: #DBECEF;
+
+  /* Ciano */
+  --cone-ciano-50: #D0FDF9;
+  --cone-ciano-100: #95FAF2;
+  --cone-ciano-200: #00F2E0;
+  --cone-ciano-300: #00D7C8;
+  --cone-ciano-400: #00B8AB;
+  --cone-ciano-500: #01998F;
+  --cone-ciano-600: #017C75;
+  --cone-ciano-700: #01605B;
+  --cone-ciano-800: #02413F;
+  --cone-ciano-900: #022425;
+
+  /* Petróleo */
+  --cone-petroleo-50: #FFFFFF;
+  --cone-petroleo-100: #F2F7F8;
+  --cone-petroleo-200: #D0E2E6;
+  --cone-petroleo-300: #A9CAD2;
+  --cone-petroleo-400: #7AACBA;
+  --cone-petroleo-500: #4B8FA1;
+  --cone-petroleo-600: #20748B;
+  --cone-petroleo-700: #01617B;
+  --cone-petroleo-800: #013D4D;
+  --cone-petroleo-900: #02222C;
+
+  /* Neutro */
+  --cone-neutro-50: #FEFEFE;
+  --cone-neutro-100: #F5F6F7;
+  --cone-neutro-200: #DCE0E2;
+  --cone-neutro-300: #C0C7CB;
+  --cone-neutro-400: #9DA9AF;
+  --cone-neutro-500: #7B8A93;
+  --cone-neutro-600: #4F6470;
+  --cone-neutro-700: #42555F;
+  --cone-neutro-800: #2B3A41;
+  --cone-neutro-900: #172126;
+
+  /* Navy */
+  --cone-navy-50: #FFFFFF;
+  --cone-navy-100: #FBFBFB;
+  --cone-navy-200: #E4E6E7;
+  --cone-navy-300: #CBCFD1;
+  --cone-navy-400: #ACB2B5;
+  --cone-navy-500: #8D959A;
+  --cone-navy-600: #717B81;
+  --cone-navy-700: #556168;
+  --cone-navy-800: #37444C;
+  --cone-navy-900: #04151F;
+}
+
+[data-theme="dark"] {
+  /* Cone · Modo escuro */
+  --cone-bg: #04151F;
+  --cone-surface: #0A2A38;
+  --cone-border: #164556;
+  --cone-text-primary: #F2FBFA;
+  --cone-text-secondary: #8FB0BC;
+  --cone-brand: #01465C;
+  --cone-on-brand: #FFFFFF;
+  --cone-button-primary: #00F2E0;
+  --cone-on-button-primary: #04151F;
+  --cone-link: #00F2E0;
+  --cone-accent: #FF8A3D;
+  --cone-on-accent: #04151F;
+
+  /* Suporte */
+  --cone-sucesso: #2BD19A;
+  --cone-sucesso-tint: #0D3E3A;
+  --cone-aviso: #FFC35C;
+  --cone-aviso-tint: #3B3B2C;
+  --cone-erro: #FF6B6F;
+  --cone-erro-tint: #3B2831;
+  --cone-info: #5CC8FF;
+  --cone-info-tint: #173C50;
+
+  /* Ciano */
+  --cone-ciano-50: #D0FDF9;
+  --cone-ciano-100: #95FAF2;
+  --cone-ciano-200: #00F2E0;
+  --cone-ciano-300: #00D7C8;
+  --cone-ciano-400: #00B8AB;
+  --cone-ciano-500: #01998F;
+  --cone-ciano-600: #017C75;
+  --cone-ciano-700: #01605B;
+  --cone-ciano-800: #02413F;
+  --cone-ciano-900: #022425;
+
+  /* Petróleo */
+  --cone-petroleo-50: #FFFFFF;
+  --cone-petroleo-100: #F2F7F8;
+  --cone-petroleo-200: #D0E2E6;
+  --cone-petroleo-300: #A9CAD2;
+  --cone-petroleo-400: #7AACBA;
+  --cone-petroleo-500: #4B8FA1;
+  --cone-petroleo-600: #20748B;
+  --cone-petroleo-700: #01617B;
+  --cone-petroleo-800: #013D4D;
+  --cone-petroleo-900: #02222C;
+
+  /* Neutro */
+  --cone-neutro-50: #F9FBFB;
+  --cone-neutro-100: #EDF2F4;
+  --cone-neutro-200: #CEDCE2;
+  --cone-neutro-300: #ABC4CD;
+  --cone-neutro-400: #8FB0BC;
+  --cone-neutro-500: #6F8A94;
+  --cone-neutro-600: #5A7179;
+  --cone-neutro-700: #44575E;
+  --cone-neutro-800: #2D3B41;
+  --cone-neutro-900: #172226;
+
+  /* Laranja */
+  --cone-laranja-50: #FFF9F5;
+  --cone-laranja-100: #FFEDE1;
+  --cone-laranja-200: #FFCDAC;
+  --cone-laranja-300: #FFA970;
+  --cone-laranja-400: #FF8A3D;
+  --cone-laranja-500: #C86E32;
+  --cone-laranja-600: #A15A2A;
+  --cone-laranja-700: #7A4623;
+  --cone-laranja-800: #4F301A;
+  --cone-laranja-900: #291C13;
+}
