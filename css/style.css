@@ -541,6 +541,13 @@ ul {
   background: var(--cone-petroleo-700);
 }
 
+/* Altura das barras definida aqui (e não no HTML) para respeitar a política de segurança */
+.mock-chart span:nth-child(1) { --h: 35%; }
+.mock-chart span:nth-child(2) { --h: 50%; }
+.mock-chart span:nth-child(3) { --h: 45%; }
+.mock-chart span:nth-child(4) { --h: 70%; }
+.mock-chart span:nth-child(5) { --h: 90%; }
+
 .mock-chart span:last-child {
   background: var(--cone-ciano-200);
 }

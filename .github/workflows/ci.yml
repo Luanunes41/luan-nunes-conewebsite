@@ -1,0 +1,33 @@
+# Verificações automáticas do site a cada push e pull request.
+# O deploy é feito pelo Cloudflare Pages, conectado direto ao repositório.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verificar:
+    name: Verificar site
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validar HTML
+        run: npx --yes html-validate@9 index.html
+
+      - name: Verificar JavaScript
+        run: node --check js/main.js
+
+      - name: Verificar links e arquivos
+        run: node scripts/check-links.mjs
