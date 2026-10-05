@@ -1,6 +1,6 @@
-/* ===== Paleta oficial Cone ===== */
+/* ===== Paleta oficial Kone ===== */
 :root {
-  /* Cone · Modo claro */
+  /* Kone · Modo claro */
   --cone-bg: #FFFFFF;
   --cone-surface: #F2F7F9;
   --cone-border: #D5E3E8;
@@ -74,7 +74,7 @@
 }
 
 [data-theme="dark"] {
-  /* Cone · Modo escuro */
+  /* Kone · Modo escuro */
   --cone-bg: #04151F;
   --cone-surface: #0A2A38;
   --cone-border: #164556;

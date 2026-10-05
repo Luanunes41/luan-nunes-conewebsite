@@ -28,31 +28,6 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') setMenu(false);
 });
 
-// Alinha a camada de efeitos (.hero__fx) com a imagem de fundo do hero.
-// Reproduz o cálculo do "background-size: cover" para o efeito ficar sempre em cima do ícone.
-const hero = document.querySelector('.hero');
-const heroFx = document.querySelector('.hero__fx');
-const HERO_IMG = { width: 1983, height: 793 };
-
-function layoutHeroFx() {
-  const w = hero.clientWidth;
-  const h = hero.clientHeight;
-  const scale = Math.max(w / HERO_IMG.width, h / HERO_IMG.height);
-  const imgW = HERO_IMG.width * scale;
-  const imgH = HERO_IMG.height * scale;
-  const posX = (parseFloat(getComputedStyle(hero).getPropertyValue('--hero-bg-x')) || 50) / 100;
-
-  heroFx.style.width = `${imgW}px`;
-  heroFx.style.height = `${imgH}px`;
-  heroFx.style.left = `${(w - imgW) * posX}px`;
-  heroFx.style.top = `${(h - imgH) / 2}px`;
-}
-
-if (hero && heroFx) {
-  new ResizeObserver(layoutHeroFx).observe(hero);
-  layoutHeroFx();
-}
-
 // Marca o link da seção visível como ativo
 const observer = new IntersectionObserver(
   (entries) => {
@@ -66,4 +41,101 @@ const observer = new IntersectionObserver(
   { rootMargin: '-50% 0px -50% 0px' }
 );
 
-document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
+document.querySelectorAll('main section[id], footer[id]').forEach((section) => observer.observe(section));
+
+// Carrossel de agentes de IA: setas, pontos, rolagem automática e pausa
+const agentsTrack = document.querySelector('[data-carousel-track]');
+
+if (agentsTrack) {
+  const cards = agentsTrack.querySelectorAll('.agent-card');
+  const dotsWrap = document.querySelector('[data-carousel-dots]');
+  const prevBtn = document.querySelector('[data-carousel-prev]');
+  const nextBtn = document.querySelector('[data-carousel-next]');
+  const pauseBtn = document.querySelector('[data-carousel-pause]');
+  const AUTOPLAY_MS = 5000;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let timer = null;
+  let pausedByUser = reduceMotion; // quem prefere menos movimento começa com o carrossel parado
+  let hovering = false;
+
+  // Distância entre o início de um card e o do próximo
+  const step = () => (cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : agentsTrack.clientWidth);
+  // Quantas posições existem (o último card visível encosta na direita)
+  const positions = () => {
+    const visible = Math.max(1, Math.floor((agentsTrack.clientWidth + 1) / step()));
+    return Math.max(1, cards.length - visible + 1);
+  };
+  const current = () => Math.round(agentsTrack.scrollLeft / step());
+
+  function goTo(index) {
+    const total = positions();
+    const target = (index + total) % total; // volta ao início depois do último
+    agentsTrack.scrollTo({ left: target * step() });
+  }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < positions(); i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'agents__dot';
+      dot.setAttribute('aria-label', `Ir para o agente ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    }
+    updateDots();
+  }
+
+  function updateDots() {
+    const index = Math.min(current(), positions() - 1);
+    dotsWrap.querySelectorAll('.agents__dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+      dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+    });
+  }
+
+  function restart() {
+    clearInterval(timer);
+    timer = null;
+    if (!pausedByUser && !hovering) timer = setInterval(() => goTo(current() + 1), AUTOPLAY_MS);
+  }
+
+  function setPaused(paused) {
+    pausedByUser = paused;
+    pauseBtn.classList.toggle('is-paused', paused);
+    pauseBtn.setAttribute('aria-label', paused ? 'Retomar carrossel' : 'Pausar carrossel');
+    restart();
+  }
+
+  prevBtn.addEventListener('click', () => { goTo(current() - 1); restart(); });
+  nextBtn.addEventListener('click', () => { goTo(current() + 1); restart(); });
+  pauseBtn.addEventListener('click', () => setPaused(!pausedByUser));
+
+  // Para enquanto o mouse ou o foco do teclado estiver no carrossel
+  const carousel = agentsTrack.closest('.agents');
+  carousel.addEventListener('mouseenter', () => { hovering = true; restart(); });
+  carousel.addEventListener('mouseleave', () => { hovering = false; restart(); });
+  carousel.addEventListener('focusin', () => { hovering = true; restart(); });
+  carousel.addEventListener('focusout', () => { hovering = false; restart(); });
+
+  // Setas do teclado quando a trilha está em foco
+  agentsTrack.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current() + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current() - 1); }
+  });
+
+  let scrollFrame = null;
+  agentsTrack.addEventListener('scroll', () => {
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = requestAnimationFrame(updateDots);
+  });
+
+  new ResizeObserver(buildDots).observe(agentsTrack);
+  setPaused(pausedByUser);
+}
+
+// Ano atual no rodapé
+document.querySelectorAll('[data-year]').forEach((el) => {
+  el.textContent = new Date().getFullYear();
+});

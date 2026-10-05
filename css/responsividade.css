@@ -1,5 +1,5 @@
 /* =====================================================================
-   Responsividade · Cone
+   Responsividade · Kone
    Carregado depois de style.css. Abordagem desktop-first:
    cada bloco ajusta o layout para telas menores que o anterior.
 
@@ -14,19 +14,17 @@
 /* ===== Até 1024px · notebook pequeno / tablet deitado ===== */
 @media (max-width: 1024px) {
   .navbar__menu {
-    gap: 1.75rem;
+    gap: 1.25rem;
   }
 
   .navbar__links {
-    gap: 1.5rem;
+    gap: 1.1rem;
   }
 
-  /* O ícone do HubSpot fica mais perto do texto: escurece um pouco mais a esquerda */
-  .hero {
-    background:
-      linear-gradient(90deg, rgba(4, 21, 31, 0.9) 0%, rgba(4, 21, 31, 0.65) 45%, rgba(4, 21, 31, 0) 75%),
-      var(--cone-navy-900) url('../img/header-hubspot.png') var(--hero-bg-x) center / cover no-repeat;
+  .navbar__link {
+    font-size: 0.88rem;
   }
+
 
   .hero__content {
     max-width: 500px;
@@ -52,8 +50,8 @@
     padding: 1.5rem;
     max-height: calc(100svh - var(--navbar-height));
     overflow-y: auto;
-    background: var(--cone-navy-900);
-    border-top: 1px solid var(--cone-petroleo-800);
+    background: var(--cone-bg);
+    border-top: 1px solid var(--cone-border);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     transform: translateY(-10px);
     opacity: 0;
@@ -75,35 +73,27 @@
   .navbar__link {
     display: block;
     padding: 0.9rem 0;
-    border-bottom: 1px solid var(--cone-petroleo-800);
+    border-bottom: 1px solid var(--cone-border);
   }
 
   .navbar__link::after {
     display: none;
   }
 
-  .navbar__logo img {
-    height: 36px;
+  .navbar__logo {
+    --logo-size: 36px;
   }
 
-  .navbar.scrolled .navbar__logo img {
-    height: 32px;
+  .navbar.scrolled .navbar__logo {
+    --logo-size: 32px;
   }
 
-  /* --- Hero: texto centralizado, fundo escurecido por igual --- */
+  /* --- Hero: texto centralizado --- */
   .hero {
-    --hero-bg-x: 72%;
     min-height: 100svh; /* evita o "pulo" da barra de endereço no celular */
-    background:
-      linear-gradient(rgba(4, 21, 31, 0.6), rgba(4, 21, 31, 0.6)),
-      var(--cone-navy-900) url('../img/header-hubspot.png') var(--hero-bg-x) center / cover no-repeat;
     text-align: center;
   }
 
-  /* O ícone fica atrás do texto: efeitos mais suaves */
-  .hero__fx {
-    opacity: 0.5;
-  }
 
   .hero__content {
     max-width: 600px;
@@ -114,10 +104,6 @@
     justify-content: center;
   }
 
-  /* --- Seções --- */
-  .section {
-    min-height: 100svh;
-  }
 }
 
 
@@ -135,12 +121,12 @@
     padding: 0 1rem;
   }
 
-  .navbar__logo img {
-    height: 30px;
+  .navbar__logo {
+    --logo-size: 32px;
   }
 
-  .navbar.scrolled .navbar__logo img {
-    height: 28px;
+  .navbar.scrolled .navbar__logo {
+    --logo-size: 30px;
   }
 
   .navbar__menu {
@@ -175,8 +161,7 @@
 
 /* ===== Celular deitado (tela baixa) ===== */
 @media (max-height: 500px) and (orientation: landscape) {
-  .hero,
-  .section {
+  .hero {
     min-height: auto;
   }
 
@@ -191,5 +176,185 @@
 
   .hero__subtitle {
     margin-bottom: 1.5rem;
+  }
+}
+
+
+/* ===== Serviços ===== */
+/* Tablet: 2 cards por linha */
+@media (max-width: 1024px) {
+  .service-card {
+    flex-basis: calc((100% - var(--grid-gap)) / 2);
+  }
+}
+
+/* Celular: 1 card por linha */
+@media (max-width: 600px) {
+  .service-card {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}
+
+
+/* ===== Agentes de IA ===== */
+/* Tablet: 2 cards visíveis */
+@media (max-width: 1024px) {
+  .agents {
+    --agents-per-view: 2;
+  }
+}
+
+/* Tablet em pé: setas descem para baixo do título */
+@media (max-width: 860px) {
+  .agents__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+/* Celular: 1 card e um pedaço do próximo, indicando que dá para arrastar */
+@media (max-width: 600px) {
+  .agents {
+    --agents-per-view: 1.12;
+    --agents-gap: 1rem;
+  }
+}
+
+
+/* ===== Rodapé ===== */
+/* Celular: barra inferior empilhada e centralizada */
+@media (max-width: 700px) {
+  .footer__shape {
+    width: 220px;
+    left: -70px;
+    bottom: -60px;
+    opacity: 0.08;
+  }
+
+  .footer__bar {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .footer__links {
+    justify-content: center;
+    gap: 1rem 1.5rem;
+  }
+}
+
+
+/* ===== Seções novas (dores, processo, migração, sobre, FAQ) ===== */
+@media (max-width: 1024px) {
+  .hero__container {
+    gap: 2.5rem;
+  }
+
+  .pains__grid,
+  .process__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Em 2 colunas a linha horizontal entre os passos não faz sentido */
+  .process__steps::before {
+    display: none;
+  }
+
+  .about__inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about__intro {
+    position: static;
+  }
+
+  .migration__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .migration__list {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}
+
+@media (max-width: 860px) {
+  /* Hero: texto em cima, ilustração embaixo */
+  .hero__container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__visual {
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section-x: 1rem;
+    --card-pad: 1.5rem;
+    --grid-gap: 1rem;
+  }
+
+  .pains__grid,
+  .process__steps,
+  .about__list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Espaço extra em cima para o cartão flutuante não cobrir o título do pipeline */
+  .hero__visual {
+    padding: 3.25rem 0.5rem 2rem;
+  }
+
+  .mock__col {
+    min-height: 170px;
+    padding: 0.5rem;
+  }
+
+  .mock__cols {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .mock-float--chart {
+    width: 140px;
+  }
+
+  .faq__item summary {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .faq__item p {
+    padding: 0 1.25rem 1.25rem;
+  }
+
+  .footer__legal {
+    padding: 0 1rem 2rem;
+    text-align: center;
+  }
+}
+
+
+/* ===== Ícone "núcleo de IA" ===== */
+@media (max-width: 1024px) {
+  .core {
+    --core-size: 160px;
+    right: -1rem;
+    bottom: -1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .core {
+    --core-size: 110px;
+    right: -0.25rem;
+    bottom: 0;
   }
 }
